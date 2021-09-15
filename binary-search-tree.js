@@ -100,22 +100,67 @@ class BinarySearchTree {
   //   /** dfsPreOrder(): Traverse the array using pre-order DFS.
   //    * Return an array of visited nodes. */
 
-  //   dfsPreOrder() {}
+  dfsPreOrder(current = this.root, array = []) {
+    array.push(current.val);
+    if (current.left) {
+      this.dfsPreOrder(current.left, array);
+    }
+    if (current.right) {
+      this.dfsPreOrder(current.right, array);
+    }
+    return array;
+  }
 
   //   /** dfsInOrder(): Traverse the array using in-order DFS.
   //    * Return an array of visited nodes. */
 
-  //   dfsInOrder() {}
+  dfsInOrder() {
+    let data = [];
+    let current = this.root;
+
+    function traverse(node) {
+      node.left && traverse(node.left); // go left if there's a left
+      data.push(node.val); // visit
+      node.right && traverse(node.right); // go right if there's a right
+    }
+
+    traverse(current);
+    return data;
+  }
 
   //   /** dfsPostOrder(): Traverse the array using post-order DFS.
   //    * Return an array of visited nodes. */
+  dfsPostOrder() {
+    let data = [];
+    let current = this.root;
+    function traverse(node) {
+      node.left && traverse(node.left); // go left if there's a left
 
-  //   dfsPostOrder() {}
+      node.right && traverse(node.right); // go right if there's a right
+      data.push(node.val); // visit
+    }
+
+    traverse(current);
+    return data;
+  }
 
   //   /** bfs(): Traverse the array using BFS.
   //    * Return an array of visited nodes. */
 
-  //   bfs() {}
+  bfs() {
+    let toVisitQueue = [this.root];
+    let returnArr = [];
+
+    while (toVisitQueue.length) {
+      let current = toVisitQueue.shift();
+
+      if (current.left) toVisitQueue.push(current.left);
+      if (current.right) toVisitQueue.push(current.right);
+
+      returnArr.push(current.val);
+    }
+    return returnArr;
+  }
 
   //   /** Further Study!
   //    * remove(val): Removes a node in the BST with the value val.
